@@ -2,27 +2,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Section visibility on scroll
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.dock-item');
-    
+
     function checkSection() {
         const scrollPosition = window.scrollY + 300; // Offset for earlier activation
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
             const sectionId = section.getAttribute('id');
-            
+
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                // Activate the section
+
                 section.classList.add('active');
-                
+
                 // Update dock navigation
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                     const linkTarget = link.getAttribute('href').substring(1);
-                    
+
                     if (linkTarget === sectionId) {
                         link.classList.add('active');
-                        
+
                         // Show running indicator
                         const indicator = link.querySelector('.running-indicator');
                         if (indicator) {
@@ -41,30 +41,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Initialize section check
     checkSection();
-    
+
     // Listen for scroll events
     window.addEventListener('scroll', checkSection);
-    
+
     // Smooth scrolling for navigation links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 // Show section transition
                 const sectionTransition = document.querySelector('.section-transition');
                 sectionTransition.classList.add('active');
-                
+
                 setTimeout(() => {
                     // Hide section transition
                     sectionTransition.classList.remove('active');
-                    
+
                     // Scroll to target section
                     window.scrollTo({
                         top: targetSection.offsetTop,
@@ -74,12 +74,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Create background particles
     function createBackgroundParticles() {
         const particleCount = 20;
         const sections = document.querySelectorAll('section');
-        
+
         sections.forEach(section => {
             const particlesContainer = document.createElement('div');
             particlesContainer.className = 'background-particles';
@@ -90,9 +90,9 @@ document.addEventListener('DOMContentLoaded', function() {
             particlesContainer.style.height = '100%';
             particlesContainer.style.pointerEvents = 'none';
             particlesContainer.style.zIndex = '0';
-            
+
             section.appendChild(particlesContainer);
-            
+
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.style.position = 'absolute';
@@ -100,20 +100,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 particle.style.height = particle.style.width;
                 particle.style.backgroundColor = 'rgba(66, 134, 244, 0.1)';
                 particle.style.borderRadius = '50%';
-                
+
                 // Random position
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-                
+
                 // Animation
                 const duration = 15 + Math.random() * 20;
                 const delay = Math.random() * 10;
                 particle.style.animation = `float ${duration}s ${delay}s infinite ease-in-out`;
-                
+
                 particlesContainer.appendChild(particle);
             }
         });
-        
+
         // Add keyframes animation
         const style = document.createElement('style');
         style.id = 'particle-keyframes';
@@ -127,16 +127,16 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(style);
     }
-    
+
     // Initialize background particles
     createBackgroundParticles();
-    
+
     // Handle window resize
     window.addEventListener('resize', function() {
         // Recalculate section positions
         checkSection();
     });
-    
+
     // Escape key handling for modals
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
