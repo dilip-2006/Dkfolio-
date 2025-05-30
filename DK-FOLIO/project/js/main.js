@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Section visibility on scroll
+
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.dock-item');
 
